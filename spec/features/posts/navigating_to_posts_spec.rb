@@ -15,4 +15,11 @@ feature 'Navigate to Post index page' do
     visit posts_path
     expect(page).to have_content(/Posts/)
   end
+
+  scenario 'it has a list of posts' do 
+    Post.create(date: Date.today, rationale: "Post 1", user: @user)
+    Post.create(date: Date.today, rationale: "Post 2", user: @user)
+    visit posts_path
+    expect(page).to have_content(/Post 1|Post 2/)
+  end
 end
