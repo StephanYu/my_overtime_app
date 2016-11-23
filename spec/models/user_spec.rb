@@ -15,13 +15,23 @@ describe 'User' do
         expect(@user).not_to be_valid
       end
     end
+  end
 
-    def create_valid_user
-      @user = User.create(first_name: 'Adam', last_name: 'Test', email: 'adam@test.com', password: '123456', password_confirmation: '123456')
+  describe '#full_name' do 
+    it 'combines the users first_name and last_name in uppercase' do 
+      create_valid_user
+      user_full_name = "#{@user.last_name.upcase}, #{@user.first_name.upcase}"
+      expect(@user.full_name).to eq(user_full_name)
     end
+  end
 
-    def create_invalid_user
-      @user = User.create(first_name: '', last_name: '', email: 'nil@test.com', password: '123456', password_confirmation: '123456')
-    end
+  def create_valid_user
+    @user = create(:user)
+  end
+
+  def create_invalid_user
+    @user = create(:user)
+    @user.first_name = ""
+    @user.last_name = ""
   end
 end
