@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Navigate to Post index page' do 
   before do 
-    @user = User.create(first_name: "User", last_name: "Test", email: "email@test.com", password: "123456", password_confirmation: "123456")
+    @user = create(:user)
     login_as(@user)
   end
   
@@ -17,9 +17,10 @@ feature 'Navigate to Post index page' do
   end
 
   scenario 'it has a list of posts' do 
-    Post.create(date: Date.today, rationale: "Post 1", user: @user)
-    Post.create(date: Date.today, rationale: "Post 2", user: @user)
+    post = create(:post)
+    second_post = create(:second_post)
     visit posts_path
-    expect(page).to have_content(/Post 1|Post 2/)
+    expect(page).to have_content(post.rationale)
+    expect(page).to have_content(second_post.rationale)
   end
 end

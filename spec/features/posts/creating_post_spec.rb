@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Create a new post' do 
   before do 
-    @user = User.create(first_name: "User", last_name: "Test", email: "email@test.com", password: "123456", password_confirmation: "123456")
+    @user = create(:user)
     login_as(@user)
     visit new_post_path
   end

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Post' do
   describe 'creation' do
     before do 
-      @user = User.create(first_name: "User", last_name: "Test", email: "email@test.com", password: "123456", password_confirmation: "123456")
+      @user = create(:user)
       login_as(@user)
     end
 
@@ -22,11 +22,13 @@ describe 'Post' do
     end
 
     def create_valid_post
-      @post = Post.create(date: Date.today, rationale: 'A test post', user: @user)
+      @post = create(:post)
     end
 
     def create_invalid_post
-      @post = Post.create(date: '', rationale: '', user: @user)
+      @post = create(:post)
+      @post.date = ""
+      @post.rationale = ""
     end
   end
 end
