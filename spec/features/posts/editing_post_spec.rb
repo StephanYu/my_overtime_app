@@ -33,4 +33,13 @@ feature 'Editing a Post' do
 
     expect(current_path).to eq(root_path)
   end
+
+  scenario 'the post cannot be edited by the creator once status is approved' do 
+    login_as(@user)
+    approved_post = create(:approved_post, user: @user)
+
+    visit edit_post_path(approved_post)
+
+    expect(current_path).to eq(root_path)
+  end
 end

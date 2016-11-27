@@ -10,4 +10,11 @@ FactoryGirl.define do
     rationale "Some more content"
     user
   end
+
+  factory :approved_post, class: "Post" do
+    date Date.today
+    rationale "Approved_post"
+    user
+    status "approved"
+  end
 end
