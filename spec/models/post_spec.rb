@@ -19,6 +19,12 @@ describe 'Post' do
         create_invalid_post
         expect(@post).not_to be_valid
       end
+
+      it 'has an overtime_request greater than 0.0' do 
+        create_valid_post
+        create_invalid_overtime(@post)
+        expect(@post).not_to be_valid
+      end
     end
 
     def create_valid_post
@@ -29,6 +35,10 @@ describe 'Post' do
       @post = create(:post)
       @post.date = ""
       @post.rationale = ""
+    end
+
+    def create_invalid_overtime(post)
+      post.overtime_request = 0.0
     end
   end
 end

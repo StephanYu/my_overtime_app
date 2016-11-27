@@ -24,9 +24,9 @@ feature 'Create a new post' do
 
     fill_in 'post[date]', with: Date.today
     fill_in 'post[rationale]', with: 'A test post'
-    click_on 'Save'
+    fill_in 'post[overtime_request]', with: 2.5
 
-    expect(page).to have_content('A test post')
+    expect { click_on 'Save' }.to change(Post, :count).by(1)
   end
 
   scenario 'the post has a user associated with it' do 
@@ -34,6 +34,7 @@ feature 'Create a new post' do
 
     fill_in 'post[date]', with: Date.today
     fill_in 'post[rationale]', with: 'A test post'
+    fill_in 'post[overtime_request]', with: 2.5
     click_on 'Save'
 
     created_post = @user.posts.last
