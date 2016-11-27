@@ -6,21 +6,30 @@ feature 'Navigate to Post index page' do
     login_as(@user)
   end
   
-  scenario 'it can be reached successfully' do 
+  scenario 'page can be reached successfully' do 
     visit posts_path
     expect(page.status_code).to eq(200)
   end
 
-  scenario 'it has a title of Posts' do 
+  scenario 'page has a title of Posts' do 
     visit posts_path
     expect(page).to have_content(/Posts/)
   end
 
-  scenario 'it has a list of posts' do 
-    post = create(:post)
-    second_post = create(:second_post)
+  scenario 'user sees a list of posts' do 
+    post = create(:post, user: @user)
+    second_post = create(:second_post, user: @user)
     visit posts_path
     expect(page).to have_content(post.rationale)
     expect(page).to have_content(second_post.rationale)
+  end
+
+  scenario 'user can only see own posts and not others' do 
+    other_user = create(:user)
+    other_user_post = create(:post, user: other_user)
+
+    visit posts_path
+
+    expect(page).not_to have_content(other_user_post.rationale)
   end
 end
