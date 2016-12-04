@@ -14,6 +14,18 @@ describe 'User' do
         create_invalid_user
         expect(@user).not_to be_valid
       end
+
+      it 'requires the phone attr to only contain integers' do
+        create_valid_user
+        @user.phone = 'mygreatstr'
+        expect(@user).to_not be_valid
+      end
+
+      it 'requires the phone attr to only have 10 chars' do
+        create_valid_user
+        @user.phone = '12345678901'
+        expect(@user).to_not be_valid
+      end
     end
   end
 
@@ -24,6 +36,8 @@ describe 'User' do
       expect(@user.full_name).to eq(user_full_name)
     end
   end
+
+  ##################################
 
   def create_valid_user
     @user = create(:user)
