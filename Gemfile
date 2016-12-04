@@ -27,6 +27,10 @@ group :development do
   gem 'guard-cucumber', '~> 2.1.2'
 end
 
+group :test do 
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+end
+
 gem 'devise', '~> 4.2'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
 gem "gritter", "1.2.0"
