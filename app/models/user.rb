@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates_length_of :phone, is: 10
 
   has_many :posts
+  has_many :audit_logs
 
   def full_name
     "#{last_name.upcase}, #{first_name.upcase}"

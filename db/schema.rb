@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161128073642) do
+ActiveRecord::Schema.define(version: 20161210123226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,17 @@ ActiveRecord::Schema.define(version: 20161128073642) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "audit_logs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "status",     default: 0
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "audit_logs", ["user_id"], name: "index_audit_logs_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.date     "date"
@@ -56,5 +67,6 @@ ActiveRecord::Schema.define(version: 20161128073642) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "audit_logs", "users"
   add_foreign_key "posts", "users"
 end
